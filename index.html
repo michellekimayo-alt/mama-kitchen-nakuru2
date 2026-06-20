@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mama Kitchen Nakuru – Nakuru's Hidden Gem</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fire: #C0392B;
+    --ember: #E8722A;
+    --gold: #F5C842;
+    --dark: #1A120B;
+    --charcoal: #2C1A0E;
+    --cream: #FDF6EC;
+    --smoke: #F0E6D3;
+    --green: #2D6A4F;
+    --text: #3D2B1F;
+    --muted: #7A5C45;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 999;
+    background: rgba(26,18,11,0.97); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; border-bottom: 2px solid var(--ember);
+  }
+  .nav-logo { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: var(--gold); line-height: 1; }
+  .nav-logo span { color: var(--ember); font-size: 0.85rem; display: block; font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { color: var(--cream); font-size: 0.85rem; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--fire); color: #fff; border: none; cursor: pointer; padding: 9px 20px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
+  .nav-cta:hover { background: var(--ember); }
+
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1A120B 0%, #2C1A0E 50%, #3D1F0A 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 100px 24px 60px; position: relative; overflow: hidden;
+  }
+  #hero::before { content: ''; position: absolute; inset: 0; background: url('https://i.ibb.co/p6447Rys/image.jpg') center/cover no-repeat; opacity: 0.18; }
+  .hero-tag { display: inline-block; background: var(--ember); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 5px 16px; border-radius: 2px; margin-bottom: 20px; position: relative; }
+  .hero-swahili { font-family: 'Dancing Script', cursive; font-size: clamp(1.4rem, 5vw, 2.4rem); color: var(--gold); margin-bottom: 8px; position: relative; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 10vw, 6rem); color: var(--cream); line-height: 1.05; font-weight: 900; position: relative; }
+  .hero-title .accent { color: var(--ember); }
+  .hero-subtitle { color: var(--smoke); font-size: clamp(1rem, 3vw, 1.25rem); margin: 20px auto; max-width: 540px; line-height: 1.7; position: relative; }
+  .hero-tagline { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--gold); margin-bottom: 32px; position: relative; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; }
+  .btn-primary { background: var(--fire); color: #fff; padding: 15px 32px; border-radius: 4px; font-weight: 700; font-size: 1rem; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; display: flex; align-items: center; gap: 8px; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--ember); transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: var(--cream); padding: 15px 32px; border-radius: 4px; font-weight: 600; font-size: 1rem; text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; display: flex; align-items: center; gap: 8px; border: 2px solid rgba(255,255,255,0.3); }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-hours { position: relative; margin-top: 48px; display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+  .hero-stat { text-align: center; }
+  .hero-stat .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold); display: block; }
+  .hero-stat .lbl { font-size: 0.75rem; color: var(--smoke); letter-spacing: 2px; text-transform: uppercase; }
+
+  .section-eyebrow { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ember); margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 700; line-height: 1.15; color: var(--dark); }
+  .divider { width: 56px; height: 4px; background: var(--ember); border-radius: 2px; margin: 16px 0 24px; }
+
+  #about { background: var(--cream); padding: 100px 24px; }
+  .about-inner { max-width: 1100px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-img { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 64px rgba(26,18,11,0.18); }
+  .about-img img { width: 100%; height: 420px; object-fit: cover; display: block; }
+  .about-badge { position: absolute; bottom: -20px; right: -20px; background: var(--fire); color: #fff; width: 120px; height: 120px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 900; box-shadow: 0 8px 24px rgba(192,57,43,0.4); }
+  .about-badge .big { font-size: 2rem; line-height: 1; }
+  .about-badge .small { font-size: 0.65rem; letter-spacing: 1px; text-align: center; }
+  .about-text p { font-size: 1.05rem; line-height: 1.85; color: var(--text); margin-bottom: 18px; }
+  .about-text .quote { border-left: 4px solid var(--ember); padding-left: 20px; margin: 28px 0; font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--charcoal); line-height: 1.5; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .chip { background: var(--smoke); color: var(--charcoal); padding: 6px 16px; border-radius: 100px; font-size: 0.82rem; font-weight: 600; }
+
+  #menu { background: var(--dark); padding: 100px 24px; }
+  #menu .section-title { color: var(--cream); }
+  #menu .section-eyebrow { color: var(--gold); }
+  #menu .divider { background: var(--gold); }
+  .menu-header { max-width: 700px; margin: 0 auto 56px; text-align: center; }
+  .menu-header p { color: var(--smoke); font-size: 1.05rem; line-height: 1.7; margin-top: 16px; }
+  .menu-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 40px; }
+  .tab-btn { background: rgba(255,255,255,0.07); color: var(--smoke); border: 1px solid rgba(255,255,255,0.1); padding: 9px 22px; border-radius: 100px; cursor: pointer; font-size: 0.88rem; font-weight: 600; transition: all 0.2s; letter-spacing: 0.5px; }
+  .tab-btn.active, .tab-btn:hover { background: var(--ember); color: #fff; border-color: var(--ember); }
+  .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1100px; margin: auto; }
+  .menu-card { background: var(--charcoal); border-radius: 10px; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; border: 1px solid rgba(255,255,255,0.06); }
+  .menu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.4); }
+  .menu-card-img { width: 100%; height: 180px; object-fit: cover; display: block; background: #3D2B1F; }
+  .menu-card-body { padding: 18px 20px 20px; }
+  .menu-card-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
+  .menu-card-desc { font-size: 0.85rem; color: #A89080; line-height: 1.6; margin-bottom: 14px; }
+  .menu-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .menu-price { color: var(--gold); font-weight: 700; font-size: 1.05rem; font-family: 'Playfair Display', serif; }
+  .btn-order { background: var(--green); color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 0.82rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+  .btn-order:hover { background: #1E4D38; }
+
+  .full-menu { max-width: 1100px; margin: 0 auto; display: none; }
+  .full-menu.active { display: block; }
+  .fmenu-section { margin-bottom: 48px; }
+  .fmenu-section h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 20px; }
+  .fmenu-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .fmenu-item { background: var(--charcoal); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255,255,255,0.06); transition: border-color 0.2s; }
+  .fmenu-item:hover { border-color: var(--ember); }
+  .fmenu-item-name { color: var(--cream); font-size: 0.95rem; font-weight: 600; }
+  .fmenu-item-sub { color: #A89080; font-size: 0.78rem; margin-top: 3px; }
+  .fmenu-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .fmenu-price { color: var(--gold); font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
+  .btn-wa-sm { background: #25D366; color: #fff; border: none; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 4px; white-space: nowrap; transition: background 0.2s; }
+  .btn-wa-sm:hover { background: #1EB553; }
+
+  #reviews { background: var(--smoke); padding: 100px 24px; }
+  .reviews-header { text-align: center; margin-bottom: 56px; }
+  .reviews-header .divider { margin: 16px auto 0; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; max-width: 1100px; margin: auto; }
+  .review-card { background: var(--cream); border-radius: 12px; padding: 28px; box-shadow: 0 4px 20px rgba(26,18,11,0.07); border-left: 4px solid var(--ember); }
+  .review-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 14px; }
+  .review-text { font-size: 0.97rem; line-height: 1.75; color: var(--text); margin-bottom: 16px; font-style: italic; }
+  .review-author { font-weight: 700; font-size: 0.85rem; color: var(--charcoal); }
+
+  #offers { background: linear-gradient(135deg, var(--fire) 0%, var(--ember) 100%); padding: 100px 24px; }
+  #offers .section-title { color: #fff; }
+  #offers .section-eyebrow { color: rgba(255,255,255,0.75); }
+  #offers .divider { background: rgba(255,255,255,0.5); }
+  .offers-header { text-align: center; margin-bottom: 48px; }
+  .offers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; max-width: 900px; margin: auto; }
+  .offer-card { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25); border-radius: 12px; padding: 32px; text-align: center; color: #fff; transition: transform 0.2s; }
+  .offer-card:hover { transform: translateY(-4px); }
+  .offer-icon { font-size: 2.5rem; margin-bottom: 14px; }
+  .offer-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+  .offer-desc { font-size: 0.92rem; line-height: 1.65; opacity: 0.9; }
+
+  #find { background: var(--dark); padding: 100px 24px; }
+  #find .section-title { color: var(--cream); }
+  #find .section-eyebrow { color: var(--gold); }
+  #find .divider { background: var(--gold); }
+  .find-inner { max-width: 1100px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .find-info { color: var(--smoke); }
+  .find-info p { line-height: 1.8; font-size: 1rem; margin-bottom: 24px; }
+  .find-detail { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
+  .find-detail .icon { width: 44px; height: 44px; border-radius: 8px; background: rgba(232,114,42,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+  .find-detail .label { font-size: 0.78rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .find-detail .value { color: var(--cream); font-weight: 600; font-size: 0.97rem; }
+  .find-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+  .map-frame { border-radius: 12px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.35); }
+  .map-frame iframe { width: 100%; height: 400px; border: none; display: block; }
+  .map-open-btn { display: block; text-align: center; background: var(--ember); color: #fff; padding: 14px; text-decoration: none; font-weight: 700; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; transition: background 0.2s; }
+  .map-open-btn:hover { background: var(--fire); }
+
+  footer { background: #0F0A06; color: var(--smoke); text-align: center; padding: 48px 24px; }
+  .footer-logo { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--gold); margin-bottom: 12px; }
+  footer p { font-size: 0.88rem; color: var(--muted); margin-bottom: 6px; }
+  .footer-links { display: flex; gap: 24px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+  .footer-links a { color: var(--smoke); font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.75rem; color: #5A4535; margin-top: 20px; }
+
+  .wa-float { position: fixed; bottom: 28px; right: 24px; z-index: 998; background: #25D366; color: #fff; width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; text-decoration: none; box-shadow: 0 6px 24px rgba(37,211,102,0.45); transition: transform 0.2s; }
+  .wa-float:hover { transform: scale(1.1); }
+
+  @media (max-width: 768px) {
+    .about-inner, .find-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .about-badge { right: 0; bottom: -14px; width: 90px; height: 90px; }
+    .about-badge .big { font-size: 1.5rem; }
+    .menu-card-img { height: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Mama Kitchen<span>Nakuru's Hidden Gem</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#offers">Offers</a>
+    <a href="#find">Find Us</a>
+  </div>
+  <a class="nav-cta" href="https://wa.me/254115531131?text=Karibu!%20I%20would%20like%20to%20book%20a%20meal%20at%20Mama%20Kitchen%20Nakuru." target="_blank">📲 Book Now</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-tag">📍 Nakuru, Kenya</div>
+  <div class="hero-swahili">Karibu Sana!</div>
+  <h1 class="hero-title">Mama <span class="accent">Kitchen</span><br>Nakuru</h1>
+  <p class="hero-subtitle">Fresh, fiery, and full of love — that's how we do it in Nakuru. Authentic Kenyan meals made with love and fresh ingredients from our own backyard and local farmers.</p>
+  <div class="hero-tagline">"Pole pole, lakini chakula in moto moto!"</div>
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://wa.me/254115531131?text=Karibu!%20I%20would%20like%20to%20book%20a%20meal%20at%20Mama%20Kitchen%20Nakuru." target="_blank">📲 Book via WhatsApp</a>
+    <a class="btn-secondary" href="#menu">🍽️ See Our Menu</a>
+  </div>
+  <div class="hero-hours">
+    <div class="hero-stat"><span class="num">7AM</span><span class="lbl">Opens Daily</span></div>
+    <div class="hero-stat"><span class="num">10PM</span><span class="lbl">Last Orders</span></div>
+    <div class="hero-stat"><span class="num">Ksh 80+</span><span class="lbl">Starts From</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-inner">
+    <div class="about-img">
+      <img src="https://i.ibb.co/WrFPnZZ7/image.jpg" alt="Inside Mama Kitchen Nakuru" onerror="this.src='https://i.ibb.co/5xCGKzT6/image.jpg'">
+      <div class="about-badge">
+        <span class="big">🏡</span>
+        <span class="small">Family Owned</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <span class="section-eyebrow">Our Story</span>
+      <h2 class="section-title">Nakuru's Hidden Gem</h2>
+      <div class="divider"></div>
+      <p>Karibu Nakuru, karibu familia! We are a small family-owned restaurant right in the heart of Nakuru — a place that has grown into a gathering spot where locals and visitors come together to enjoy authentic Kenyan meals.</p>
+      <p>Everything is made with love and fresh ingredients from our own backyard and trusted local farmers. No fancy stuff. Just honest, delicious food that reminds you why Kenyan cuisine is world-class.</p>
+      <div class="quote">"Hakuna matata when the food is this good."</div>
+      <p>We cook slow so you can enjoy every bite. Eat up and leave with a full belly and happy heart.</p>
+      <div class="chips">
+        <span class="chip">🌿 Fresh Ingredients</span>
+        <span class="chip">🔥 Charcoal Grilled</span>
+        <span class="chip">🏡 Family Owned</span>
+        <span class="chip">🚚 Takeaway & Delivery</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="menu-header">
+    <span class="section-eyebrow">What to Try</span>
+    <h2 class="section-title">Signature Dishes</h2>
+    <div class="divider" style="margin:16px auto;"></div>
+    <p>Don't know where to start? Here's what our regulars are loving:</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('signatures', event)">⭐ Signatures</button>
+    <button class="tab-btn" onclick="showTab('breakfast', event)">🌅 Breakfast</button>
+    <button class="tab-btn" onclick="showTab('grills', event)">🔥 Grills & Choma</button>
+    <button class="tab-btn" onclick="showTab('stews', event)">🍲 Stews & Wetfry</button>
+    <button class="tab-btn" onclick="showTab('starters', event)">🥗 Starters</button>
+    <button class="tab-btn" onclick="showTab('drinks', event)">🥤 Drinks</button>
+  </div>
+
+  <div id="tab-signatures" class="menu-grid">
+    <div class="menu-card">
+      <img src="https://i.ibb.co/Y7nVh4zs/image.jpg" alt="Nyama Choma" class="menu-card-img" onerror="this.style.background='#5A3020'">
+      <div class="menu-card-body">
+        <div class="menu-card-name">Nyama Choma Special</div>
+        <div class="menu-card-desc">Tender goat or beef grilled over charcoal the real Kenyan way. Served with kachumbari that bites back!</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">Ksh 650 / ½kg</span>
+          <a class="btn-order" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20Nyama%20Choma%20Special." target="_blank">📲 Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://i.ibb.co/S4vxZZRX/image.jpg" alt="Ugali and Greens" class="menu-card-img" onerror="this.style.background='#3D5C30'">
+      <div class="menu-card-body">
+        <div class="menu-card-name">Mama's Ugali & Greens</div>
+        <div class="menu-card-desc">Soft ugali with buttery sukuma, wiki or mrenda. Simple, comforting, addictive.</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">Ksh 100+</span>
+          <a class="btn-order" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20Ugali%20na%20Greens." target="_blank">📲 Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://i.ibb.co/wNTL9PBJ/image.jpg" alt="Githeri Power Bowl" class="menu-card-img" onerror="this.style.background='#5A4520'">
+      <div class="menu-card-body">
+        <div class="menu-card-name">Githeri Power Bowl</div>
+        <div class="menu-card-desc">Beans & maize cooked to perfection with coconut milk and spices. The ultimate Kenyan comfort food.</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">Ksh 200</span>
+          <a class="btn-order" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20Githeri%20Power%20Bowl." target="_blank">📲 Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://i.ibb.co/7xPJ9LV0/image.jpg" alt="Fish Fry" class="menu-card-img" onerror="this.style.background='#3D4A20'">
+      <div class="menu-card-body">
+        <div class="menu-card-name">Fish Fry (Tilapia / Mudfish)</div>
+        <div class="menu-card-desc">Crispy outside, juicy inside, straight from the lake. A true Nakuru classic.</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">Ksh 650</span>
+          <a class="btn-order" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20Fish%20Fry." target="_blank">📲 Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://i.ibb.co/Jj6gd8X5/image.jpg" alt="Kienyeji Chicken" class="menu-card-img" onerror="this.style.background='#5A3510'">
+      <div class="menu-card-body">
+        <div class="menu-card-name">Kienyeji Chicken Stew</div>
+        <div class="menu-card-desc">Slow-cooked free-range chicken in rich tomato gravy. Worth every minute of the wait.</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">Market Price</span>
+          <a class="btn-order" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20Kienyeji%20Chicken%20Stew." target="_blank">📲 Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://i.ibb.co/TMSONS1g/image.jpg" alt="Chai and Mandazi" class="menu-card-img" onerror="this.style.background='#4A3020'">
+      <div class="menu-card-body">
+        <div class="menu-card-name">Chai & Mandazi Combo</div>
+        <div class="menu-card-desc">Perfect mid-afternoon or breakfast vibe. The pair that started it all.</div>
+        <div class="menu-card-footer">
+          <span class="menu-price">Ksh 150</span>
+          <a class="btn-order" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20Chai%20na%20Mandazi." target="_blank">📲 Order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-breakfast" class="full-menu">
+    <div class="fmenu-section">
+      <h3>🌅 Breakfast / Asubuhi (7AM – 11AM)</h3>
+      <div class="fmenu-items">
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Chai & Mandazi</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 150</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Chai%20na%20Mandazi" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mayai Mbili na Chapati</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 250</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mayai%20Mbili%20na%20Chapati" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mboazi ya Nazi</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 280</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mboazi%20ya%20Nazi" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Oatmeal or Ugali Special</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 200</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Ugali%20Special" target="_blank">📲 Order</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-grills" class="full-menu">
+    <div class="fmenu-section">
+      <h3>🔥 Grills & Nyama Choma</h3>
+      <div class="fmenu-items">
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Nyama Choma (Beef)</div><div class="fmenu-item-sub">½kg / 1kg</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 650 / 1,200</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Nyama%20Choma%20Beef" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mbuzi Choma (Goat)</div><div class="fmenu-item-sub">½kg / 1kg</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 750 / 1,400</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mbuzi%20Choma" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Kuku Choma (Chicken)</div><div class="fmenu-item-sub">½kg / 1kg</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 650 / 1,200</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Kuku%20Choma" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mixed Grill Platter</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 1,800</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mixed%20Grill%20Platter" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Fish Choma</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 650</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Fish%20Choma" target="_blank">📲 Order</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-stews" class="full-menu">
+    <div class="fmenu-section">
+      <h3>🍲 Stews & Wetfry / Mchuzi</h3>
+      <div class="fmenu-items">
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Kuku Wet Fry</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 550</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Kuku%20Wet%20Fry" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Beef Wet Fry</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 450</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Beef%20Wet%20Fry" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mbuzi Fry / Goat Stew</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 550</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mbuzi%20Fry" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Tilapia Wet Fry</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 500</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Tilapia%20Wet%20Fry" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Matumbo</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 400</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Matumbo" target="_blank">📲 Order</a></div></div>
+      </div>
+    </div>
+    <div class="fmenu-section">
+      <h3>🍚 Sides & Accompaniments</h3>
+      <div class="fmenu-items">
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Ugali (Large)</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 100</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuongeza%20Ugali" target="_blank">📲 Add</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Chapati (2 pcs)</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 100</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuongeza%20Chapati" target="_blank">📲 Add</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Rice</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 150</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuongeza%20Rice" target="_blank">📲 Add</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Chips</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 150</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuongeza%20Chips" target="_blank">📲 Add</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Kachumbari</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 80</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuongeza%20Kachumbari" target="_blank">📲 Add</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-starters" class="full-menu">
+    <div class="fmenu-section">
+      <h3>🥗 Starters / Vibaridi (Appetizers)</h3>
+      <div class="fmenu-items">
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Kachumbari Fresh</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 120</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Kachumbari%20Fresh" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mshikaki (Beef or Goat Skewers)</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 250</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mshikaki" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Samosa (Beef or Veg)</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 200</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Samosa" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Mutura</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 300</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Mutura" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Viazi Karai</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 180</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Viazi%20Karai" target="_blank">📲 Order</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-drinks" class="full-menu">
+    <div class="fmenu-section">
+      <h3>🥤 Drinks / Vinywaji</h3>
+      <div class="fmenu-items">
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Fresh Chai</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 50</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Fresh%20Chai" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Fresh Juice</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 150</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Fresh%20Juice" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Maziwa</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 100</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Maziwa" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Soda</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 100</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Soda" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Water</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 50</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Maji" target="_blank">📲 Order</a></div></div>
+        <div class="fmenu-item"><div><div class="fmenu-item-name">Kenyan Coffee</div></div><div class="fmenu-item-right"><span class="fmenu-price">Ksh 120</span><a class="btn-wa-sm" href="https://wa.me/254115531131?text=Nataka%20kuorder%20Kenyan%20Coffee" target="_blank">📲 Order</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="reviews-header">
+    <span class="section-eyebrow">Why People Love Us</span>
+    <h2 class="section-title">What Our Regulars Say</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"The best nyama choma in Nakuru, hands down. The meat is always soft and the michele is perfect!"</p>
+      <div class="review-author">— Regular Customer, Nakuru</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Felt like I was eating at my grandmother's house. Portion sizes are generous and the service is so warm."</p>
+      <div class="review-author">— Happy Visitor</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Affordable, tasty and fast. My new lunch spot every Friday! Asante sana for making us your favourite spot."</p>
+      <div class="review-author">— Friday Lunch Regular</div>
+    </div>
+  </div>
+</section>
+
+<section id="offers">
+  <div class="offers-header">
+    <span class="section-eyebrow">Don't Miss Out</span>
+    <h2 class="section-title">Special Offers & Events</h2>
+    <div class="divider" style="margin:16px auto;"></div>
+  </div>
+  <div class="offers-grid">
+    <div class="offer-card">
+      <div class="offer-icon">🥩</div>
+      <div class="offer-title">Wednesday Nyama Night</div>
+      <p class="offer-desc">Buy 1kg Nyama Choma and get extra kachumbari FREE! Every Wednesday, while stocks last.</p>
+    </div>
+    <div class="offer-card">
+      <div class="offer-icon">👨‍👩‍👧‍👦</div>
+      <div class="offer-title">Family Meal Deal</div>
+      <p class="offer-desc">Feed 4 people for the price of 3. Perfect for family gatherings and celebrations!</p>
+    </div>
+    <div class="offer-card">
+      <div class="offer-icon">🚚</div>
+      <div class="offer-title">Takeaway & Delivery</div>
+      <p class="offer-desc">We bring the heat to your door. Order via WhatsApp and we'll sort you out anywhere in Nakuru!</p>
+    </div>
+  </div>
+</section>
+
+<section id="find">
+  <div class="find-inner">
+    <div class="find-info">
+      <span class="section-eyebrow">Come Visit</span>
+      <h2 class="section-title">Find Us in Nakuru</h2>
+      <div class="divider"></div>
+      <p>Tuko tayari kukupokea — we are ready to welcome you! Step in, take a seat, and let Mama Kitchen do the rest. Come once and you'll come again. Karibu tena!</p>
+      <div class="find-detail">
+        <div class="icon">📍</div>
+        <div><div class="label">Location</div><div class="value">Mama Kitchen, Nakuru Town, Kenya</div></div>
+      </div>
+      <div class="find-detail">
+        <div class="icon">⏰</div>
+        <div><div class="label">Open Daily</div><div class="value">7:00 AM – 10:00 PM</div></div>
+      </div>
+      <div class="find-detail">
+        <div class="icon">📞</div>
+        <div><div class="label">Call / WhatsApp</div><div class="value">0115 531 131</div></div>
+      </div>
+      <div class="find-ctas">
+        <a class="btn-primary" href="https://wa.me/254115531131?text=Habari!%20Ninataka%20kuja%20Mama%20Kitchen.%20Mnaweza%20kunieleza%20mahali%20mlipo?" target="_blank">📲 WhatsApp Us</a>
+        <a class="btn-secondary" href="https://maps.google.com/?q=Nakuru+Town+Kenya" target="_blank" style="border-color:rgba(255,255,255,0.2)">🗺️ Open in Maps</a>
+      </div>
+    </div>
+    <div class="map-frame">
+      <iframe src="https://maps.google.com/maps?q=Nakuru+Town,+Kenya&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <a class="map-open-btn" href="https://maps.google.com/?q=Nakuru+Town+Kenya" target="_blank">📍 Get Directions to Mama Kitchen</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Mama Kitchen</div>
+  <p>Nakuru's Hidden Gem — Fresh, Fiery, Full of Love</p>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#offers">Offers</a>
+    <a href="#find">Find Us</a>
+    <a href="https://wa.me/254115531131" target="_blank">📲 WhatsApp</a>
+  </div>
+  <p>📞 0115 531 131 &nbsp;|&nbsp; ⏰ 7AM – 10PM Daily &nbsp;|&nbsp; 📍 Nakuru, Kenya</p>
+  <div class="footer-copy">© 2026 Mama Kitchen Nakuru. Karibu daima!</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/254115531131?text=Habari!%20Nataka%20kuorder%20chakula%20kutoka%20Mama%20Kitchen%20Nakuru." target="_blank" title="Order on WhatsApp">💬</a>
+
+<script>
+  function showTab(tab, e) {
+    document.querySelectorAll('.menu-grid, .full-menu').forEach(el => {
+      el.style.display = 'none';
+      el.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+    if (tab === 'signatures') {
+      const grid = document.querySelector('.menu-grid');
+      grid.style.display = 'grid';
+      grid.classList.add('active');
+    } else {
+      const target = document.getElementById('tab-' + tab);
+      if (target) { target.style.display = 'block'; target.classList.add('active'); }
+    }
+    e.target.classList.add('active');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.menu-card, .review-card, .offer-card, .about-img, .about-text').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
